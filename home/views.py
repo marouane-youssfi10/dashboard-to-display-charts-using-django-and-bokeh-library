@@ -16,12 +16,18 @@ from .models import VoitureModel
 from django.shortcuts import HttpResponseRedirect
 from django.http import HttpResponseRedirect
 
+from .templates.bokeh_chart.bar_chart import bar_chart
+from .templates.bokeh_chart.line_chart import line_chart
+from .templates.bokeh_chart.pie_chart import pie_chart
+from .templates.bokeh_chart.scatter_chart import scatter_chart
+
+
 def home(request):
     return render(request, 'pages/login.html')
 
 def chart(request):
     if request.method == "POST":
-        # try:
+
         name_car1 = []
         price = []
         annee = []
@@ -183,81 +189,10 @@ def chart(request):
         TOOLS = 'box_select,reset,wheel_zoom, pan, save'
 
         # ---------------making chart scatter-----------------------------------------
-        TOOLTIPS = """<table>
-                           <tr>
-                                <td style="color:blue;"> nom   <td>
-                                <td>: @name_car   </td>
-                           </tr>
-                           <tr>
-                                <td style="color:blue;"> Price   <td>
-                                <td>: @price DH  </td>
-                           </tr>
-                           <tr>
-                                <td style="color:blue;"> Année  <td>
-                                <td>: @annee   </td>
-                           </tr>
-                           <tr>
-                                <td style="color:blue;"> Ville  <td>
-                                <td>: @ville   </td>
-                           </tr>
-                           <tr>
-                                <td colspan="2" height="10px"></td>
-                                <td colspan="2"></td>
-                           </tr>
-                      </table>"""
-
-        scatter_chart = figure(plot_width=530, plot_height=337,
-                               toolbar_location='above', # title='scatter chart'
-                               x_axis_label='année de voiture', y_axis_label='Price(DH)', tools=TOOLS,
-                               x_range=(df['annee'].min() - 1, df['annee'].max() + 5))
-
-        scatter_chart.circle(x='annee', y='price', source=df, size=11, color='#4e73df', legend_label=name + ' ' + model_display,
-                             hover_color="#D8D8D8")
-        scatter_chart.add_layout(Legend(), 'center')
-        scatter_chart.add_tools(HoverTool(tooltips=TOOLTIPS))
-        scatter_chart.legend.background_fill_alpha = 1  # bach tban chafafa
-
-        scatter_chart.yaxis[0].formatter = NumeralTickFormatter(format="0")  # bach matbanh 3la ckll 3.500e+5
-
-        # legend
-        # scatter_chart.legend.label_text_font = "times"
-        # scatter_chart.legend.label_text_color = "#224abe"
-        # scatter_chart.legend.label_text_font_size = "10pt"
-        # scatter_chart.legend.background_fill_color = "#f8f9fc"
-        # scatter_chart.legend.background_fill_color = "#ebefff" background d legend
-
-        # x-axis & y-axis
-        scatter_chart.xaxis.axis_label_text_font_size = "12pt"
-        scatter_chart.yaxis.axis_label_text_font_size = "12pt"
-        scatter_chart.xaxis.axis_label_text_font = "Calibri"
-        scatter_chart.yaxis.axis_label_text_font = "Calibri"
-        scatter_chart.yaxis.minor_tick_line_color = None
-        scatter_chart.xgrid.grid_line_color = None
-
-        # Title
-        scatter_chart.title.text_font_size = '13pt'
-        scatter_chart.title.text_font = 'Arial'
-        scatter_chart.title.text_color = "#224abe"
-
-        # border
-        scatter_chart.outline_line_width = 2
-        scatter_chart.outline_line_alpha = 0.1
-        # scatter_chart.outline_line_color = "#4e73df"
-
-        # change just some things about the x-axis
-        scatter_chart.xaxis.axis_line_width = 1.5
-        scatter_chart.xaxis.axis_line_color = "#99b0ff"
-
-        # change just some things about the y-axis
-        scatter_chart.yaxis.axis_line_color = None # "#99b0ff"
-        scatter_chart.yaxis.axis_line_width = 1.5
-
-        scatter_script, scatter_div = components(scatter_chart)
-        # ----------------------------------------------------------------------------------------
-
+        scatter_div, scatter_script = scatter_chart(df, name, TOOLS, model_display)
+        # ---------------end making chart scatter-----------------------------------------
 
         # ------------------------------------- pie chart ------------------------------------------
-
         # algorithme for calcul count of ville
         count_ville = []
         villeL = list(set(ville_pie))
@@ -277,144 +212,12 @@ def chart(request):
             'percentage': p,
         })
 
-        df_for_pie_char = df_for_pie_char.sort_values(['count_ville'], ascending=False)
-
-        color = [
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9 '
-            '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9 '
-            '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9',
-            '#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#e6550d', '#fd8d3c', '#fdae6b', '#fdd0a2', '#31a354', '#74c476',
-            '#a1d99b', '#c7e9c0', '#756bb1', '#9e9ac8', '#bcbddc', '#dadaeb', '#636363', '#969696', '#bdbdbd', '#d9d9d9'
-        ]
-
-        df_for_pie_char['angle'] = df_for_pie_char['count_ville'] / df_for_pie_char['count_ville'].sum() * 2 * pi
-        colors = []
-        for i in range(len(df_for_pie_char['count_ville'])):
-            colors.append(color[i])
-        df_for_pie_char['color'] = colors
-
-        TOOLTIPS_pie = """<table>
-                                <tr>
-                                     <td style="color:blue;"> Ville   <td>
-                                     <td>: @villeL   </td>
-                                </tr>
-                                <tr>
-                                     <td style="color:blue;"> Percentage  <td>
-                                     <td>: @percentage %   </td>
-                                </tr>
-                          </table>"""
-
-        title = 'le nombre de voiture"' + name + '"dans chaque ville'
-        pie_chart = figure(plot_height=400, # title=title,
-                           toolbar_location='above', tools=TOOLS, tooltips=TOOLTIPS_pie, x_range=(-0.5, 1.1))
-
-        pie_chart.wedge(x=0.1, y=1.3, radius=0.4, hover_color="#94afff",
-                        start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
-                        line_color="white", fill_color='color', legend_field='villeL', source=df_for_pie_char)
-
-        # axis
-        pie_chart.axis.axis_label = None
-        pie_chart.axis.visible = False
-        pie_chart.grid.grid_line_color = None
-
-        # legend
-        # pie_chart.legend.label_text_font = "times"
-        # pie_chart.legend.label_text_color = "black"
-        # pie_chart.legend.label_text_font_size = "10pt"
-
-        # title
-        pie_chart.title.text_font_size = '11pt'
-        pie_chart.title.text_font = 'Arial'
-        pie_chart.title.text_color = "#224abe"
-
-        # border
-        pie_chart.outline_line_width = 2
-        pie_chart.outline_line_alpha = 0.1
-        pie_chart.outline_line_color = "#4e73df"
-
-        pie_script, pie_div = components(pie_chart)
+        pie_script, pie_div = pie_chart(name, TOOLS, df_for_pie_char)
         # -------------------------------------------------------------------------------------------------
 
         # ------------------------------------- bar chart ------------------------------------------------
-        diesel = carburant.count('Diesel')
-        essence = carburant.count('Essence')
-
-        carb = pd.DataFrame({
-            'carburant': ['Essence', 'Diesel'],
-            'counts': [essence, diesel]
-        })
-        source = ColumnDataSource(data=dict(carb_x=carb['carburant'], counts=carb['counts']))
-
-        # plot_height=337, plot_width=465
-        title_bar = 'presenté le carburant de voiture ' + name
-        bar_chart = figure(x_range=carb['carburant'], plot_height=337, plot_width=350, # title="Carburants",
-                           toolbar_location='above', tools=TOOLS, x_axis_label=title_bar, y_axis_label='Le nombre de fois')
-
-        bar_chart.vbar(x='carb_x', top='counts', width=0.4, color="#4e73df", source=source, hover_color="#819ff7")
-
-        bar_chart.add_tools(HoverTool(tooltips="""<table>
-                                                        <tr>
-                                                             <td style="color:blue;"> le nombre de fois   <td>
-                                                             <td>                    : @counts            </td>
-                                                        </tr>
-                                                </table>"""))
-        # legend
-        # bar_chart.legend.label_text_font = "times"
-        # bar_chart.legend.label_text_color = "black"
-        # bar_chart.legend.label_text_font_size = "10pt"
-
-        # x-axis & y-axis
-        bar_chart.xaxis.axis_label_text_font_size = "12pt"
-        bar_chart.yaxis.axis_label_text_font_size = "12pt"
-        bar_chart.xaxis.axis_label_text_font = "Calibri"
-        bar_chart.yaxis.axis_label_text_font = "Calibri"
-        bar_chart.yaxis.minor_tick_line_color = None # bach t7iyd douk l5touta li kaybano mabin l5touta ra2isiiyin like 0,5,10
-        bar_chart.xgrid.grid_line_color = None # to move line in axis inside chart
-
-        # Title
-        bar_chart.title.text_font_size = '13pt'
-        bar_chart.title.text_font = 'Arial'
-        bar_chart.title.text_color = "#224abe"
-
-        # border
-        bar_chart.outline_line_width = 2
-        bar_chart.outline_line_alpha = 0.1
-        # bar_chart.outline_line_color = "#4e73df"
-
-        # change just some things about the x-axis
-        bar_chart.xaxis.axis_line_width = 1.5
-        bar_chart.xaxis.axis_line_color = "#99b0ff"
-
-        # change just some things about the y-axis
-        bar_chart.yaxis.axis_line_color = None # "#99b0ff"
-        bar_chart.yaxis.axis_line_width = 1.5
-
-        bar_chart.y_range.start = 0  # bach tjnb tkoun chart b3ida chwia 3la mi7war afasil
-
-        bar_script, bar_div = components(bar_chart)
-        # -------------------------------------------------------------------------------------------
-
+        bar_script, bar_div = bar_chart(carburant, name, TOOLS)
         # ------------------------------------- line chart -----------------------------------------
-
         # algorithm for calcul count of price
         count_price = []
         priceL = list(set(price))
@@ -428,71 +231,8 @@ def chart(request):
         df_for_line_char = df_for_line_char.reset_index(drop=False)
         df_for_line_char = df_for_line_char.sort_values(by=['priceL'], ascending=True)
 
-        line_chart = figure(plot_height=430, plot_width=977, toolbar_location='above', # title='Line chart',
-                            y_axis_label='Le nombre de fois', x_axis_label='Price(DH)', tools=TOOLS)
-
-        line_chart.line(x='priceL', y='count_price', line_width=1.7, color="#4e73df", legend_label=name + ' ' + model_display,
-                        source=df_for_line_char)
-
-        line_chart.circle(x='priceL', y='count_price', size=5, color='blue', hover_color="#D8D8D8",
-                          source=df_for_line_char)
-
-        line_chart.xaxis[0].formatter = NumeralTickFormatter(format="0")
-
-        TOOLTIPS_LINE = """<table>
-                                        <tr>
-                                             <td style="color:blue;">  le nombre de fois  <td>
-                                             <td>: @count_price   </td>
-                                        </tr>
-                                        <tr>
-                                             <td style="color:blue;"> Price <td>
-                                             <td>: @priceL DH   </td>
-                                        </tr>
-                                        <tr>
-                                             <center> 
-                                                <td colspan = "2" height="10px"></td>
-                                             </center>
-                                        </tr>
-                                </table>"""
-        line_chart.add_tools(HoverTool(tooltips=TOOLTIPS_LINE))
-
-        line_chart.legend.background_fill_alpha = 0.0
-        # legend
-        # line_chart.legend.label_text_font = "times"
-        # line_chart.legend.label_text_color = "black"
-        # line_chart.legend.label_text_font_size = "10pt"
-        # line_chart.legend.background_fill_color = "#f8f9fc"
-        # line_chart.legend.background_fill_color = "#ebefff" # background d legend
-
-
-        # x-axis & y-axis
-        line_chart.xaxis.axis_label_text_font_size = "12pt"
-        line_chart.yaxis.axis_label_text_font_size = "12pt"
-        line_chart.xaxis.axis_label_text_font = "Calibri"
-        line_chart.yaxis.axis_label_text_font = "Calibri"
-        line_chart.yaxis.minor_tick_line_color = None
-        line_chart.xgrid.grid_line_color = None
-
-        # Title
-        line_chart.title.text_font_size = '13pt'
-        line_chart.title.text_font = 'Arial'
-        line_chart.title.text_color = "#224abe"
-
-        # border
-        line_chart.outline_line_width = 2
-        line_chart.outline_line_alpha = 0.1
-        # line_chart.outline_line_color = "#4e73df"
-
-        # change just some things about the x-axis
-        line_chart.xaxis.axis_line_width = 1.5
-        line_chart.xaxis.axis_line_color = "#99b0ff"
-
-        # change just some things about the y-axis
-        line_chart.yaxis.axis_line_color = None # "#99b0ff"
-        line_chart.yaxis.axis_line_width = 1.5
-
-        line_chart.xaxis.major_label_orientation = pi / 4
-        line_script, line_div = components(line_chart)
+        line_script, line_div = line_chart(name, model_display, TOOLS, df_for_line_char)
+        # ------------------------------------- end line chart -----------------------------------------
 
         context = {
                 'showsearch': showsearch,
