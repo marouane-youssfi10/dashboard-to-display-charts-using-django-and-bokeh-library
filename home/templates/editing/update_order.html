@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+    <form action="" method="POST">
+        <div class="col-md">
+            <div class="card card-body">
+                {% csrf_token %}
+                <div class="container">
+                    <h2>edit car</h2>
+                    <hr>
+                    <table class="" width="400px" height="300px"> <!-- table table-striped -->
+                        <tr>
+                            <th>id</th>
+                            <th>{{form.id}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>name_car</th>
+                            <th>{{form.name_car}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>type_car</th>
+                            <th>{{form.type_car}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>price</th>
+                            <th>{{form.price}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>ville</th>
+                             <th>{{form.ville}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>time</th>
+                            <th>{{form.time}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>carburant</th>
+                            <th>{{form.carburant}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>puissance</th>
+                            <th>{{form.puissance}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>boite_a_vitesse</th>
+                            <th>{{form.boite_a_vitesse}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>kilometrage</th>
+                            <th>{{form.kilometrage}}</th>
+
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>annee</th>
+                              <th>{{form.annee}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>marque</th>
+                            <th>{{form.marque}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>model</th>
+                            <th>{{form.model}}</th>
+                        </tr>
+                        <tr><th colspan="2"><hr></th></tr>
+                        <tr>
+                            <th>description</th>
+                            <th>{{form.description}}</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="col-md">
+            <div class="card card-body">
+                <div class="row">
+                    <div style="padding-left:830px;">
+                        <a class="btn btn-primary" href="">Cancel</a> &nbsp;
+                        <input class="btn btn-primary" type="submit" value="edit">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

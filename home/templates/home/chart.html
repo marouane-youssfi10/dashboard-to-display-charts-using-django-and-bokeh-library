@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+{% load humanize %}
+    <style>
+        #statistics{
+              display: none;
+        }
+        #data{
+            display: none;
+        }
+    </style>
+    <div id="chart" class="tabcontent">
+        <div class="row">
+            <div class="col-lg-7 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">scatter chart</h6>
+                    </div>
+                    <div class="card-body">
+                        {{scatter_div | safe}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">bar chart</h6>
+                    </div>
+                    <div class="card-body">
+                        {{bar_div | safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">somethings</h6>
+                    </div>
+                    <div class="card-body">
+                        say something
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Pie chart</h6>
+                    </div>
+                    <div class="card-body">
+                        {{pie_div| safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 mb-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Line chart</h6>
+                    </div>
+                    <div class="card-body">
+                        {{line_div| safe}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- statisitcs -->
+    <div id="statistics" class="tabcontent">
+        <!-- start row 1-->
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    nom de voiture
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{name}} {{model_display}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    nombre de voiture
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{number_of_car}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Min
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{min | intcomma}} DH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Max
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{max | intcomma}} DH</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row 1-->
+
+        <!-- start row 2-->
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Mean
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{mean | intcomma}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Mediane
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{mediane | intcomma}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Variance
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{variance | intcomma}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-90 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Ecart type
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ecart_type | intcomma}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br> <br><br><br><br><br>
+    </div>
+    <!-- end statisitcs -->
+
+    <!-- Data car -->
+    <div id="data" class="tabcontent">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Data Car</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"  id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <!--<th>id</th>-->
+                                <th>Nom</th>
+                                <th>Price</th>
+                                <th>Ville</th>
+                                <!--<th>Day</th>-->
+                                <th>Carburant</th>
+                                <th>Puissance</th>
+                                <th>Boite a vitesse</th>
+                                <th>Kilometrage</th>
+                                <th>Année</th>
+                                <th>Marque</th>
+                                <th>Model</th>
+                                <!--<th>description</th>-->
+                                <th>update</th>
+                                <th>delete</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <!--<th>id</th>-->
+                                <th>Nom</th>
+                                <th>Price</th>
+                                <th>Ville</th>
+                                <!--<th>Day</th>-->
+                                <th>Carburant</th>
+                                <th>Puissance</th>
+                                <th>Boite a vitesse</th>
+                                <th>Kilometrage</th>
+                                <th>Année</th>
+                                <th>Marque</th>
+                                <th>Model</th>
+                                <!--<th>description</th>-->
+                                <th>update</th>
+                                <th>delete</th>
+                            </tr>
+                        </tfoot>
+
+                        <tbody>
+                        {% for result in showsearch %}
+                            <tr>
+                                <!--<td>{{result.id}}</td>-->
+                                <td>{{result.name_car}}</td>
+                                <td>{{result.price | intcomma}} DH</td>
+                                <td>{{result.ville}}</td>
+                                <!--<td>{{result.time}}</td>-->
+                                <td>{{result.carburant}}</td>
+                                {% if result.puissance == -1 %}
+                                    <td>--</td>
+                                {% else %}
+                                    <td>{{result.puissance}}</td>
+                                {% endif %}
+                                <td>{{result.boite_a_vitesse}}</td>
+                                <td>{{result.kilometrage}}</td>
+                                <td>{{result.annee}}</td>
+                                <td>{{result.marque}}</td>
+                                <td>{{result.model}}</td>
+                                <!--<td>{{result.description}}</td>-->
+                                <td class="">
+                                    <a href="{% url 'update_order' result.id %}">
+                                        <button class="btn btn-primary">Update</button>
+                                    </a>
+                                </td>
+                                <td class="">
+                                    <a href="{% url 'delete_order' result.id %}">
+                                        <button class="btn btn-danger">Delete</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card card-body">
+                <div style="padding-left:870px;">
+                    <a href="{% url 'create_order' %}" style="color:white;">
+                        <button class="btn btn-primary">
+                            Create item
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

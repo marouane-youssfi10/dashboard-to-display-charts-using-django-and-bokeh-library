@@ -1,0 +1,79 @@
+{% load static %}
+{% load staticfiles %}
+<html>
+<head>
+  <link rel="icon" href="static/img/ic_4.png">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>project fin d'etude</title>
+  <!-- Custom fonts for this template-->
+  <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <!--<link href="{% static 'css/team.css'%}" rel="stylesheet" id="bootstrap-css"> -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+    {% include 'partials/_topbar.html' %}
+    <!-- <hr style="width:60%;text-align:left;margin-left:25%"> -->
+    <!-- -------------------------------------------- -->
+    <div class="container">
+        <div class="row">
+            <div class="heading-title"><br>
+                <h2>Our professionals </h2>
+                <ul class="breadcrumbs">
+                   <h5>
+                       Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend. Nam pulvinar vitae neque et porttitor. Praesent sed nisi eleifend.
+                   </h5>
+                </ul>
+            </div>
+
+            <div class="col-md-3 col-sm-4" style="padding-left:250px;">
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="{% static 'img/origine.jpg' %}" class="img-responsive" width="230px">
+                    </div>
+                </div>
+                <div class="team-title">
+                    <br>
+                    <h5>Marouane&nbsp;Youssfi</h5>
+                    <span>CEO</span>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4" style="padding-left:300px;">
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="{% static 'img/abdellah.jpeg' %}" class="img-responsive" width="230px" height="345px">
+                    </div>
+                </div>
+                <div class="team-title">
+                    <br>
+                    <h5>Abdellah&nbsp;Targaoui</h5>
+                    <span>Manager</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <!-- -------------------------------------------- -->
+
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    <!-- Page level plugins -->
+    <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+    <!-- Page level custom scripts -->
+    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+</body>
+</html>

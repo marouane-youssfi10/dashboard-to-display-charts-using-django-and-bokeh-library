@@ -1,0 +1,66 @@
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <!-- Sidebar - Brand -->
+
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
+        <div class="sidebar-brand-icon rotate-n">
+            <i class="fas fa-chart-bar"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Project fin d'etude</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'home' %}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <div class="tab">
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link collapsed"  href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+               aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span onclick="openCity(event, 'chart')">Data visualisations</span>
+            </a>
+
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <!--<h6 class="collapse-header">Information:</h6>-->
+                    <span onclick="openCity(event, 'chart')"><a class="collapse-item"> Charts</a></span>
+                    <span onclick="openCity(event, 'statistics')"><a class="collapse-item"> Staticis</a></span>
+                    <span onclick="openCity(event, 'data')"><a class="collapse-item"> Data car</a></span>
+                </div>
+            </div>
+        </li>
+    </div>
+    <!-- Divider -->
+</ul>
+<!-- End of Sidebar -->
+
+<script>
+function openCity(evt, block_display)
+{
+    var i, tabcontent, tablinks;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++)
+    {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++)
+    {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(block_display).style.display = "block";
+    evt.currentTarget.className += "active";
+}
+</script>

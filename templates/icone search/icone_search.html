@@ -1,0 +1,86 @@
+{% load static %}
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#4e73df; color:white; margin-right:-0.5px; padding-left:45px;">
+               <!--   <h4 class="modal-title">Welcome back</h4>-->
+                <img src="{% static 'img/car-logo1.png' %}" width="400px" height="50px">
+            </div>
+            <div class="modal-body">
+                <form class="user" method="POST" action="{% url 'chart' %}">
+                    {% csrf_token %}
+                    <!-- search for name car -->
+                    <template id="resultstemplate_name">
+                            {% include 'search_in_form/datalist_name.html' %}
+                    </template>
+                    <div class="form-group">
+                            <input type="text" class="form-control form-control-user" name="name_car"
+                             placeholder="Search by name..." autocomplete="off" id="search_name"
+                             list="searchresults_name" onclick="myFunction_name()"> <!-- required -->
+                            <datalist id="searchresults_name"></datalist>
+                    </div>
+
+                    <!-- search for model car -->
+                    <template id="resultstemplate_model">
+                            {% include 'search_in_form/datalist_model.html' %}
+                    </template>
+                    <div class="form-group">
+                            <input type="text" class="form-control form-control-user" name="model"
+                             placeholder="Search by model..." autocomplete="off" id="search_model"
+                            list="searchresults_model" onclick="myFunction_model()">
+                        <datalist id="searchresults_model"></datalist>
+                    </div>
+
+                    <!-- search for min and max price -->
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="number" class="form-control form-control-user" name="min_price"
+                                placeholder="Min price" pattern="[0-9\s]*" autocomplete="off">
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control form-control-user" name="max_price"
+                                placeholder="Max price" pattern="[0-9\s]*" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- search for city car -->
+                    <template id="resultstemplate_city">
+                            {% include 'search_in_form/datalist_city.html' %}
+                    </template>
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user" name="city" id="search_city"
+                               placeholder="Search by city..." list="searchresults_city" autocomplete="off"
+                               onclick="myFunction_city()">
+                        <datalist id="searchresults_city"></datalist>
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-user" name="boite_a_vitesse"
+                               placeholder="Search by boite a vitesse..." autocomplete="off" list="carburant">
+                        <datalist id="carburant">
+                            <option>Manuelle</option>
+                            <option>Automatique</option>
+                        </datalist>
+                    </div>
+
+                    <button  type="submit" class="btn btn-primary btn-user btn-block">
+                        <i class="fa fa-search"></i>
+                            Search
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer" style="background-color:#4e73df;">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color:white; color:#4e73df;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- datalist for city -->
+<script src="{% static 'js/searching_inside_form_city.js' %}"></script>
+<!-- datalist for name -->
+<script src="{% static 'js/searching_inside_form_name.js' %}"></script>
+<!-- datalist for model -->
+<script src="{% static 'js/searching_inside_form_model.js' %}"></script>

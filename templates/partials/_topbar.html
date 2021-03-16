@@ -1,0 +1,42 @@
+{% load static %}
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- Topbar -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+    <!-- logo pictures -->
+    <div style="padding:2%;">
+        <a href="{% url 'home' %}">
+            <img src="{% static 'img/car-logo11.png' %}" width="400px" height="50px">
+        </a>
+    </div>
+     <!-- end logo pictures -->
+
+    <!-- Topbar Navbar -->
+    <div class="navbar-collapse collapse w-100">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}" >Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'chart' %} "> Chart</a>  <!--style="color:#4e73df; -->
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}"> About </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#myModal">
+                    <i class="fa fa-search"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- end Top Navbar-->
+</nav>
+
+<!-- search icone -->
+    {% include 'icone search/icone_search.html' %}
+<!-- and search icone-->
+

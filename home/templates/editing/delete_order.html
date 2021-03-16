@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">delete this item</h6>
+            </div>
+            <div class="card-body">
+                <p>Are you sure you want to delete "{{item}}"?</p>
+                 <form action="{% url 'delete_order' item.id  %}" method="POST">
+                    {% csrf_token %}
+                    <a class="btn btn-light" href="{{request.META.HTTP_REFERER}}">Cancel</a>
+                    <input class="btn btn-danger" type="submit" value="delete">
+                </form>
+            </div>
+        </div>
+    </div>
+
+<br><br><br><br><br><br><br><br><br>
+{% endblock %}

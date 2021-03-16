@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<form action="" method="POST">
+    <div class="col-md">
+        <div class="card card-body">
+            {% csrf_token %}
+            <br><br>
+            <div class="container">
+                <h3>{{already}}</h3>
+                <table class="" width="400px" height="300px"> <!-- table table-striped -->
+
+                    <!--<tr> <th>id</th> </tr>-->
+                    <th><input type="hidden" name="id" value="{{last_id}}"></th>
+                    <!--<tr><th colspan="2"><hr></th></tr>-->
+
+                    <tr>
+                        <th>Name car</th>
+                        <!--<th>{{form.name_car}}</th>-->
+                        <th><input type="text" name="name_car" placeholder="Entrez name car"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Type car</th>
+                        <!--<th>{{form.type_car}}</th>-->
+                        <th><input type="text" name="type_car" placeholder="Entrez type car"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Price</th>
+                        <!--<th>{{form.price}}</th>-->
+                        <th><input type="number" name="price" placeholder="Entrez le prix"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Ville</th>
+                         <!--<th>{{form.ville}}</th>-->
+                         <th><input type="text" name="ville" placeholder="Entrez dans la ville"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Day</th>
+                        <!--<th>{{form.time}}</th>-->
+                        <th><input type="date" name="time" placeholder="Entrez la date"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Carburant</th>
+                        <!--<th>{{form.carburant}}</th>-->
+                        <th><input type="text" name="carburant" placeholder="Entrez le carburant"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Puissance</th>
+                        <!--<th>{{form.puissance}}</th>-->
+                        <th><input type="number" name="puissance" placeholder="Entrez la puissance"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Boite a vitesse</th>
+                        <!--<th>{{form.boite_a_vitesse}}</th>-->
+                        <th><input type="text" name="boite_a_vitesse" placeholder="Entre la boite a vitesse"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Kilometrage</th>
+                        <!--<th>{{form.kilometrage}}</th>-->
+                        <th><input type="text" name="kilometrage" placeholder="Entrez kilométrage"></th>
+
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Année</th>
+                          <!--<th>{{form.annee}}</th>-->
+                          <th><input type="number" name="annee" placeholder="Entrez année"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Marque</th>
+                        <!--<th>{{form.marque}}</th>-->
+                        <th><input type="text" name="marque" placeholder="Entrez la marque"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Model</th>
+                        <!--<th>{{form.model}}</th>-->
+                        <th><input type="text" name="model" placeholder="Entrez model"></th>
+                    </tr>
+                    <tr><th colspan="2"><hr></th></tr>
+                    <tr>
+                        <th>Description</th>
+                        <!--<th>{{form.description}}</th>-->
+                        <!--<th><input type="text" name="description" placeholder="Entrez desscription"></th>-->
+                        <th>
+                        <textarea type="text" name="description" placeholder="Entrez la description" style="height:150px; width:300px;">
+                        </textarea>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="col-md">
+        <div class="card card-body">
+            <div class="row">
+                <div style="padding-left:830px;">
+                    <a class="btn btn-primary" href="{% url 'home' %}">Cancel</a>
+                    <input class="btn btn-primary" type="submit" value="send">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
