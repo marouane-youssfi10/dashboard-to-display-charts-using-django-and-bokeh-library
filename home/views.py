@@ -199,7 +199,7 @@ def chart(request):
             'count_ville': count_ville,
             'percentage': p,
         })
-
+        # making pie chart
         pie_script, pie_div = pie_chart(name, TOOLS, df_for_pie_char)
 
         # making bar chart
