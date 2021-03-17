@@ -3,6 +3,7 @@ from bokeh.models import HoverTool
 from bokeh.models import Legend
 from bokeh.models import NumeralTickFormatter
 from bokeh.plotting import figure
+from bokeh.models import FuncTickFormatter
 
 def scatter_chart(df, name, TOOLS, model_display):
     TOOLTIPS = """<table>
@@ -73,6 +74,8 @@ def scatter_chart(df, name, TOOLS, model_display):
     # change just some things about the y-axis
     scatter_chart.yaxis.axis_line_color = None # "#99b0ff"
     scatter_chart.yaxis.axis_line_width = 1.5
+
+    scatter_chart.yaxis.formatter=NumeralTickFormatter(format="0,0")
 
     scatter_script, scatter_div = components(scatter_chart)
 

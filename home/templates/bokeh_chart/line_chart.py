@@ -68,6 +68,8 @@ def line_chart(name, model_display, TOOLS, df_for_line_char):
     line_chart.yaxis.axis_line_color = None  # "#99b0ff"
     line_chart.yaxis.axis_line_width = 1.5
 
+    line_chart.yaxis.formatter = NumeralTickFormatter(format="0,0")
+
     line_chart.xaxis.major_label_orientation = pi / 4
     line_script, line_div = components(line_chart)
     return line_script, line_div

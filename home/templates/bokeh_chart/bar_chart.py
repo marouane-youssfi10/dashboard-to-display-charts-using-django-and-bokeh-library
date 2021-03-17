@@ -2,6 +2,7 @@ from bokeh.embed import components
 from bokeh.models import HoverTool
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource
+from bokeh.models import NumeralTickFormatter
 import pandas as pd
 
 def bar_chart(carburant, name, TOOLS):
@@ -59,6 +60,8 @@ def bar_chart(carburant, name, TOOLS):
     bar_chart.yaxis.axis_line_width = 1.5
 
     bar_chart.y_range.start = 0  # bach tjnb tkoun chart b3ida chwia 3la mi7war afasil
+
+    bar_chart.yaxis.formatter = NumeralTickFormatter(format="0,0") # space betwen 000 000
 
     bar_script, bar_div = components(bar_chart)
     return bar_script, bar_div
