@@ -37,7 +37,7 @@
                                     </div>
                                     <hr>
                                     <br>
-                                    <form class="user" method="POST" action="{% url 'chart' %}">
+                                    <form class="user" method="POST" action="{% url 'chart' %}" id="myform">
                                         {% csrf_token %}
                                         <!-- search for name car -->
                                         <template id="resultstemplate_name">

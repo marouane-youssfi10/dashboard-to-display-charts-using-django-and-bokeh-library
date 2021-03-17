@@ -1,21 +1,9 @@
-from home.models import VoitureModel
 from django.shortcuts import render, redirect
-from bokeh.plotting import figure
-from bokeh.transform import cumsum
-from bokeh.embed import components
-from bokeh.models import ColumnDataSource
-from math import pi
-from bokeh.models import HoverTool
-from bokeh.models import Legend
-from bokeh.models import NumeralTickFormatter
 import statistics
 import pandas as pd
-import json
 from .form import TestingForm
 from .models import VoitureModel
-from django.shortcuts import HttpResponseRedirect
 from django.http import HttpResponseRedirect
-
 from .templates.bokeh_chart.bar_chart import bar_chart
 from .templates.bokeh_chart.line_chart import line_chart
 from .templates.bokeh_chart.pie_chart import pie_chart
@@ -27,7 +15,6 @@ def home(request):
 
 def chart(request):
     if request.method == "POST":
-
         name_car1 = []
         price = []
         annee = []
@@ -188,24 +175,25 @@ def chart(request):
 
         TOOLS = 'box_select,reset,wheel_zoom, pan, save'
 
-        # ---------------making chart scatter-----------------------------------------
+        # making chart scatter
         scatter_div, scatter_script = scatter_chart(df, name, TOOLS, model_display)
-        # ---------------end making chart scatter-----------------------------------------
 
-        # ------------------------------------- pie chart ------------------------------------------
-        # algorithme for calcul count of ville
+        # making pie chart
+        # algorithme for count  ville
         count_ville = []
         villeL = list(set(ville_pie))
         for i in villeL:
             count_ville.append(ville_pie.count(i))
-        # -------------------------------------------
+        # ---------end algorithme ----------------
 
         p = []
         percentage = [d / sum(count_ville) * 100 for d in count_ville]
-        # ----------- % ra9m wahd mour lfasila ------------
+
+        # ------ % this for one number after comma -------
         for i in percentage:
             p.append(str(round(i, 1)))
         # ------------------------------------------------
+
         df_for_pie_char = pd.DataFrame({
             'villeL': villeL,
             'count_ville': count_ville,
@@ -213,12 +201,12 @@ def chart(request):
         })
 
         pie_script, pie_div = pie_chart(name, TOOLS, df_for_pie_char)
-        # -------------------------------------------------------------------------------------------------
 
-        # ------------------------------------- bar chart ------------------------------------------------
+        # making bar chart
         bar_script, bar_div = bar_chart(carburant, name, TOOLS)
-        # ------------------------------------- line chart -----------------------------------------
-        # algorithm for calcul count of price
+
+        # making line chart
+        # algorithm for count price
         count_price = []
         priceL = list(set(price))
         for i in priceL:
@@ -232,7 +220,6 @@ def chart(request):
         df_for_line_char = df_for_line_char.sort_values(by=['priceL'], ascending=True)
 
         line_script, line_div = line_chart(name, model_display, TOOLS, df_for_line_char)
-        # ------------------------------------- end line chart -----------------------------------------
 
         context = {
                 'showsearch': showsearch,
@@ -283,14 +270,13 @@ def create_order(request):
     }
     return render(request, 'editing/create_order.html', context)
 
-def update_order(request, pk):
-    # print('---------------------------\n', 'id = ', pk)
-    order = VoitureModel.objects.get(id=pk)
-    # print('---------------------------\n\n', 'name = ', order, '\n\n---------------------------')
-    form = TestingForm(instance=order)
 
+def update_order(request, pk):
+    # print('id = ', pk)
+    order = VoitureModel.objects.get(id=pk)
+    # print('name = ', order)
+    form = TestingForm(instance=order)
     if request.method == 'POST':
-        # print('---------------------------- Printing POST:\n', request.POST, '\n--------------------------------------')
         form = TestingForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
@@ -300,14 +286,15 @@ def update_order(request, pk):
     context = {'form': form}
     return render(request, 'editing/update_order.html', context)
 
+
 def delete_order(request, pk):
     order = VoitureModel.objects.get(id=pk)
     if request.method == "POST":
-        # print('---------------------------- Printing POST:\n', request.POST, '\n--------------------------------------')
         order.delete()
         return redirect('/')
 
     context = {'item': order}
 
     return render(request, 'editing/delete_order.html', context)
+
 
