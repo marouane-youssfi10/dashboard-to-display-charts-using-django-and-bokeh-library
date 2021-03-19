@@ -9,3 +9,5 @@ class CarAdmin(admin.ModelAdmin):
     # list_filter = ('marque', 'ville')
 
 admin.site.register(VoitureModel, CarAdmin)
+
+
