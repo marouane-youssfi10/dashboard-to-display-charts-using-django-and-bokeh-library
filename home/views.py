@@ -39,7 +39,7 @@ def chart(request):
         if 'name_car' in request.POST:
             name_car = request.POST['name_car']
             if name_car:
-                print('---------------------name_car---------------')
+                print('------------------name_car---------------')
                 print('name = ', name_car)
                 if showsearch.filter(name_car__icontains=name_car) is None:
                     pass
@@ -56,7 +56,7 @@ def chart(request):
         if 'model' in request.POST:
             model_1 = request.POST['model']
             if model_1:
-                print('---------------------model---------------')
+                print('-----------------model---------------')
                 print('model = ', model_1, '\n')
                 city_for_pie_chart = city_for_pie_chart.filter(model__iexact=model_1)
                 showsearch = showsearch.filter(model__iexact=model_1)
@@ -70,7 +70,7 @@ def chart(request):
         if 'city' in request.POST:
             city_1 = request.POST['city']
             if city_1:
-                print('---------------------model---------------')
+                print('-----------------city---------------')
                 print('city = ', city_1, '\n')
                 showsearch = showsearch.filter(ville__iexact=city_1)
 
@@ -84,7 +84,7 @@ def chart(request):
         if 'boite_a_vitesse' in request.POST:
             boite_a_vitesse_1 = request.POST['boite_a_vitesse']
             if boite_a_vitesse_1:
-                print('---------------------boite_a_vitesse_1---------------')
+                print('-------------------boite_a_vitesse_1---------------')
                 print('boite_a_vitesse = ', boite_a_vitesse_1, '\n')
                 city_for_pie_chart = city_for_pie_chart.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
                 showsearch = showsearch.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
