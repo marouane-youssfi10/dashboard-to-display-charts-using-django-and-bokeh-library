@@ -123,7 +123,7 @@ def chart(request):
             carburant.append(i.carburant)
             puissance.append(i.puissance)
             ville.append(i.ville)
-            time.append(i.time)
+            time.append(i.day)
             kilometrage.append(i.kilometrage)
             descriptions.append(i.description)
 
