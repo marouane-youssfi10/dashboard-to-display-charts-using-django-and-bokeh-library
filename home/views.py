@@ -10,7 +10,6 @@ from .templates.bokeh_chart.pie_chart import pie_chart
 from .templates.bokeh_chart.scatter_chart import scatter_chart
 from django.db import connection
 
-
 def home(request):
     return render(request, 'pages/login.html')
 
@@ -33,16 +32,6 @@ def chart(request):
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
 
-        # requet = "  SELECT * " \
-        #          "  FROM fact_car, car, price , cpb, model " \
-        #          "  WHERE fact_car.id_fact = car.id_car     and " \
-        #          "        fact_car.id_fact = price.id_price and " \
-        #          "        fact_car.id_fact = cpb.id_cpb     and " \
-        #          "        fact_car.id_fact = model.id_model;"
-
-        # showsearch = Fact_car.objects.raw(requet)
-        # city_for_pie_chart = Fact_car.objects.raw(requet)
-
         # raw_query = "  SELECT * " \
         #           "  FROM fact_car, cars, price , cpb, model " \
         #           "  WHERE fact_car.id_fact = cars.id_car    and " \
@@ -62,8 +51,6 @@ def chart(request):
         # print("row", row)
         # for i in row:
         #     print('i = ', i)
-        print('-----------------------------------------------------------------------------------------\n')
-
 
         showsearch = VoitureModel.objects.all()
         city_for_pie_chart = VoitureModel.objects.all()
