@@ -31,6 +31,8 @@ def chart(request):
 
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
+        city_get = request.POST.get('city')
+        boite_get = request.POST.get('boite_a_vitesse')
 
         # raw_query = "  SELECT * " \
         #           "  FROM fact_car, cars, price , cpb, model " \
@@ -53,7 +55,7 @@ def chart(request):
         #     print('i = ', i)
 
 
-        showsearch = Fact_car.objects.raw("select * from get_data_1('dacia', 'logan', 'Meknes', 'Manuelle', 10000, 1000000);")
+        showsearch = Fact_car.objects.raw("select * from get_data_1('"+ name +"', '" + model_display + "', '" + city_get + "', '"+ boite_get +"', 10000, 1000000);")
         # showsearch = VoitureModel.objects.all()
         city_for_pie_chart = VoitureModel.objects.all()
 
