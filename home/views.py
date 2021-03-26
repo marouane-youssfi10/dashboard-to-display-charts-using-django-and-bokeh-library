@@ -43,23 +43,23 @@ def chart(request):
         # showsearch = Fact_car.objects.raw(requet)
         # city_for_pie_chart = Fact_car.objects.raw(requet)
 
-        raw_query = "  SELECT * " \
-                  "  FROM fact_car, cars, price , cpb, model " \
-                  "  WHERE fact_car.id_fact = cars.id_car    and " \
-                  "        fact_car.id_fact = price.id_price and " \
-                  "        fact_car.id_fact = cpb.id_cpb     and " \
-                  "        fact_car.id_fact = model.id_model and " \
-                  "        cars.name_car like concat('%','fiat palio','%');  "
+        # raw_query = "  SELECT * " \
+        #           "  FROM fact_car, cars, price , cpb, model " \
+        #           "  WHERE fact_car.id_fact = cars.id_car    and " \
+        #           "        fact_car.id_fact = price.id_price and " \
+        #           "        fact_car.id_fact = cpb.id_cpb     and " \
+        #           "        fact_car.id_fact = model.id_model and " \
+        #           "        cars.name_car like concat('%','fiat palio','%');  "
 
         # raw_query = "SELECT * FROM fact_car WHERE id_fact = 2;"
 
-        cursor = connection.cursor()
-        cursor.execute(raw_query)
-        row = cursor.fetchall()
-        print('-------------------------------------------------------------------------------------------')
-        print("cursor = ", cursor.fetchall())
-        print("raw_query", raw_query)
-        print("row", row)
+        # cursor = connection.cursor()
+        # cursor.execute(raw_query)
+        # row = cursor.fetchall()
+        # print('-------------------------------------------------------------------------------------------')
+        # print("cursor = ", cursor.fetchall())
+        # print("raw_query", raw_query)
+        # print("row", row)
         # for i in row:
         #     print('i = ', i)
         print('-----------------------------------------------------------------------------------------\n')
