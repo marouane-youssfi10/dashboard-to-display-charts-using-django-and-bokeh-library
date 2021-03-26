@@ -31,29 +31,14 @@ def chart(request):
 
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
-
-        # raw_query = "  SELECT * " \
-        #           "  FROM fact_car, cars, price , cpb, model " \
-        #           "  WHERE fact_car.id_fact = cars.id_car    and " \
-        #           "        fact_car.id_fact = price.id_price and " \
-        #           "        fact_car.id_fact = cpb.id_cpb     and " \
-        #           "        fact_car.id_fact = model.id_model and " \
-        #           "        cars.name_car like concat('%','fiat palio','%');  "
-
-        # raw_query = "SELECT * FROM fact_car WHERE id_fact = 2;"
-
-        # cursor = connection.cursor()
-        # cursor.execute(raw_query)
-        # row = cursor.fetchall()
-        # print('-------------------------------------------------------------------------------------------')
-        # print("cursor = ", cursor.fetchall())
-        # print("raw_query", raw_query)
-        # print("row", row)
-        # for i in row:
-        #     print('i = ', i)
+        get_city = request.POST.get('city') # dacia logan
+        boite = request.POST.get('boite_a_vitesse') # dacia logan
+        min_p = request.POST.get('min_price') # dacia logan
+        max_p = request.POST.get('max_price') # dacia logan
 
 
-        test_show = Fact_car.objects.raw("select * from get_data_1('fiat', 'palio', 'Meknes', 'Manuelle', 10000, 1000000);")
+        test_show = Fact_car.objects.raw("select * from get_data_1"
+        "('" + name + "', '"+ model_display +"', '" + get_city + "', '" + boite + "', " + min_p + "," + max_p + ");")
         showsearch = VoitureModel.objects.all()
         city_for_pie_chart = VoitureModel.objects.all()
 
@@ -61,8 +46,11 @@ def chart(request):
         print('\n')
 
         k = 1
+        if not test_show:
+            print('5awya')
         for i in test_show:
             print(k, '. name = ', i.name_car)
+            print(k, '. name = ', i.model)
             k = k + 1
         # search name
         if 'name_car' in request.POST:
