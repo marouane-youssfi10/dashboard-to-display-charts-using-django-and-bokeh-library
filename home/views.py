@@ -52,84 +52,90 @@ def chart(request):
         # for i in row:
         #     print('i = ', i)
 
-        showsearch = VoitureModel.objects.all()
+
+        showsearch = Fact_car.objects.raw("select * from get_data_1('dacia', 'logan', 'Meknes', 'Manuelle', 10000, 1000000);")
+        # showsearch = VoitureModel.objects.all()
         city_for_pie_chart = VoitureModel.objects.all()
 
+        k = 1
+        for i in showsearch:
+            print(k, '. name = ', i.name_car)
+            k = k + 1
         # search name
-        if 'name_car' in request.POST:
-            name_car = request.POST['name_car']
-            if name_car:
-                print('------------------name_car---------------')
-                print('name = ', name_car)
-                if showsearch.filter(name_car__icontains=name_car) is None:
-                    pass
-                else:
-                    city_for_pie_chart = city_for_pie_chart.filter(name_car__icontains=name_car)
-                    showsearch = showsearch.filter(name_car__icontains=name_car)
-
-        # if name not exist in database
-        n = 'name'
-        if not showsearch:
-            return render(request, 'home/error.html', {'name': name_car, 'input': n})
-
-        # search with model
-        if 'model' in request.POST:
-            model_1 = request.POST['model']
-            if model_1:
-                print('-----------------model---------------')
-                print('model = ', model_1, '\n')
-                city_for_pie_chart = city_for_pie_chart.filter(model__iexact=model_1)
-                showsearch = showsearch.filter(model__iexact=model_1)
-
-        # if model not exist in database
-        n = 'model'
-        if not showsearch:
-            return render(request, 'home/error.html', {'name': model_1, 'input': n})
-
-        # search with city
-        if 'city' in request.POST:
-            city_1 = request.POST['city']
-            if city_1:
-                print('-----------------city---------------')
-                print('city = ', city_1, '\n')
-                showsearch = showsearch.filter(ville__iexact=city_1)
-
-        # if city not exist in database
-        n = 'ville'
-        if not showsearch:
-            return render(request, 'home/error.html', {'name': city_1, 'input': n})
-
-
-        # search with 'boite a vitesse'
-        if 'boite_a_vitesse' in request.POST:
-            boite_a_vitesse_1 = request.POST['boite_a_vitesse']
-            if boite_a_vitesse_1:
-                print('-------------------boite_a_vitesse_1---------------')
-                print('boite_a_vitesse = ', boite_a_vitesse_1, '\n')
-                city_for_pie_chart = city_for_pie_chart.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
-                showsearch = showsearch.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
-
-        # if boite_a_vitesse not exist in database
-        n = 'boite a vitesse'
-        if not showsearch:
-            return render(request, 'home/error.html', {'name': boite_a_vitesse_1, 'input': n})
-
-        # search with min & max price
-        if 'min_price' in request.POST:
-            min_price = request.POST['min_price']
-            max_price = request.POST['max_price']
-            if max_price:
-                print('---------------------min price & max price---------------')
-                print('min_price = ', min_price)
-                print('max_price = ', max_price, '\n')
-                city_for_pie_chart = city_for_pie_chart.filter(price__gte=min_price, price__lte=max_price)
-                showsearch = showsearch.filter(price__gte=min_price, price__lte=max_price)
-
-        # if min_price and max_price not exist in database
-        p = 'does not exist'
-        n = 'min and max price'
-        if not showsearch:
-            return render(request, 'home/error_price.html', {'name': p, 'input': n})
+        # if 'name_car' in request.POST:
+        #     name_car = request.POST['name_car']
+        #     if name_car:
+        #         print('------------------name_car---------------')
+        #         print('name = ', name_car)
+        #         if showsearch.filter(name_car__icontains=name_car) is None:
+        #             pass
+        #         else:
+        #             city_for_pie_chart = city_for_pie_chart.filter(name_car__icontains=name_car)
+        #             showsearch = showsearch.filter(name_car__icontains=name_car)
+#
+        # # if name not exist in database
+        # n = 'name'
+        # if not showsearch:
+        #     return render(request, 'home/error.html', {'name': name_car, 'input': n})
+#
+        # # search with model
+        # if 'model' in request.POST:
+        #     model_1 = request.POST['model']
+        #     if model_1:
+        #         print('-----------------model---------------')
+        #         print('model = ', model_1, '\n')
+        #         city_for_pie_chart = city_for_pie_chart.filter(model__iexact=model_1)
+        #         showsearch = showsearch.filter(model__iexact=model_1)
+#
+        # # if model not exist in database
+        # n = 'model'
+        # if not showsearch:
+        #     return render(request, 'home/error.html', {'name': model_1, 'input': n})
+#
+        # # search with city
+        # if 'city' in request.POST:
+        #     city_1 = request.POST['city']
+        #     if city_1:
+        #         print('-----------------city---------------')
+        #         print('city = ', city_1, '\n')
+        #         showsearch = showsearch.filter(ville__iexact=city_1)
+#
+        # # if city not exist in database
+        # n = 'ville'
+        # if not showsearch:
+        #     return render(request, 'home/error.html', {'name': city_1, 'input': n})
+#
+#
+        # # search with 'boite a vitesse'
+        # if 'boite_a_vitesse' in request.POST:
+        #     boite_a_vitesse_1 = request.POST['boite_a_vitesse']
+        #     if boite_a_vitesse_1:
+        #         print('-------------------boite_a_vitesse_1---------------')
+        #         print('boite_a_vitesse = ', boite_a_vitesse_1, '\n')
+        #         city_for_pie_chart = city_for_pie_chart.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
+        #         showsearch = showsearch.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
+#
+        # # if boite_a_vitesse not exist in database
+        # n = 'boite a vitesse'
+        # if not showsearch:
+        #     return render(request, 'home/error.html', {'name': boite_a_vitesse_1, 'input': n})
+#
+        # # search with min & max price
+        # if 'min_price' in request.POST:
+        #     min_price = request.POST['min_price']
+        #     max_price = request.POST['max_price']
+        #     if max_price:
+        #         print('---------------------min price & max price---------------')
+        #         print('min_price = ', min_price)
+        #         print('max_price = ', max_price, '\n')
+        #         city_for_pie_chart = city_for_pie_chart.filter(price__gte=min_price, price__lte=max_price)
+        #         showsearch = showsearch.filter(price__gte=min_price, price__lte=max_price)
+#
+        # # if min_price and max_price not exist in database
+        # p = 'does not exist'
+        # n = 'min and max price'
+        # if not showsearch:
+        #     return render(request, 'home/error_price.html', {'name': p, 'input': n})
 
 
         # append data to list
