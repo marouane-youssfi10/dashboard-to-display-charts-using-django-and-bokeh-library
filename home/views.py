@@ -31,11 +31,10 @@ def chart(request):
 
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
-        get_city = request.POST.get('city') # dacia logan
-        boite = request.POST.get('boite_a_vitesse') # dacia logan
-        min_p = request.POST.get('min_price') # dacia logan
-        max_p = request.POST.get('max_price') # dacia logan
-
+        # get_city = request.POST.get('city') # dacia logan
+        # boite = request.POST.get('boite_a_vitesse') # dacia logan
+        # min_p = request.POST.get('min_price') # dacia logan
+        # max_p = request.POST.get('max_price') # dacia logan
 
         # test_show = Fact_car.objects.raw("select * from get_data_1"
         # "('" + name + "', '"+ model_display +"', '" + get_city + "', '" + boite + "', " + min_p + "," + max_p + ");")
@@ -63,12 +62,10 @@ def chart(request):
                 else:
                     city_for_pie_chart = city_for_pie_chart.filter(name_car__icontains=name_car)
                     showsearch = showsearch.filter(name_car__icontains=name_car)
-
         # if name not exist in database
         n = 'name'
         if not showsearch:
-            return render(request, 'home/error.html', {'name': name_car, 'input': n})
-
+            return render(request, 'home/error.html', {'name': name_car, 'input': n})#
         # search with model
         if 'model' in request.POST:
             model_1 = request.POST['model']
@@ -76,27 +73,22 @@ def chart(request):
                 print('-----------------model---------------')
                 print('model = ', model_1, '\n')
                 city_for_pie_chart = city_for_pie_chart.filter(model__iexact=model_1)
-                showsearch = showsearch.filter(model__iexact=model_1)
-
+                showsearch = showsearch.filter(model__iexact=model_1)#
         # if model not exist in database
         n = 'model'
         if not showsearch:
-            return render(request, 'home/error.html', {'name': model_1, 'input': n})
-
+            return render(request, 'home/error.html', {'name': model_1, 'input': n})#
         # search with city
         if 'city' in request.POST:
             city_1 = request.POST['city']
             if city_1:
                 print('-----------------city---------------')
                 print('city = ', city_1, '\n')
-                showsearch = showsearch.filter(ville__iexact=city_1)
-
+                showsearch = showsearch.filter(ville__iexact=city_1)#
         # if city not exist in database
         n = 'ville'
         if not showsearch:
-            return render(request, 'home/error.html', {'name': city_1, 'input': n})
-
-
+            return render(request, 'home/error.html', {'name': city_1, 'input': n})##
         # search with 'boite a vitesse'
         if 'boite_a_vitesse' in request.POST:
             boite_a_vitesse_1 = request.POST['boite_a_vitesse']
@@ -104,13 +96,11 @@ def chart(request):
                 print('-------------------boite_a_vitesse_1---------------')
                 print('boite_a_vitesse = ', boite_a_vitesse_1, '\n')
                 city_for_pie_chart = city_for_pie_chart.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
-                showsearch = showsearch.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
-
+                showsearch = showsearch.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)#
         # if boite_a_vitesse not exist in database
         n = 'boite a vitesse'
         if not showsearch:
-            return render(request, 'home/error.html', {'name': boite_a_vitesse_1, 'input': n})
-
+            return render(request, 'home/error.html', {'name': boite_a_vitesse_1, 'input': n})#
         # search with min & max price
         if 'min_price' in request.POST:
             min_price = request.POST['min_price']
@@ -121,13 +111,11 @@ def chart(request):
                 print('max_price = ', max_price, '\n')
                 city_for_pie_chart = city_for_pie_chart.filter(price__gte=min_price, price__lte=max_price)
                 showsearch = showsearch.filter(price__gte=min_price, price__lte=max_price)
-
         # if min_price and max_price not exist in database
         p = 'does not exist'
         n = 'min and max price'
         if not showsearch:
             return render(request, 'home/error_price.html', {'name': p, 'input': n})
-
 
         # append data to list
         for i in showsearch:
@@ -163,6 +151,8 @@ def chart(request):
             'kilometrage': kilometrage,
             'descriptions': descriptions
         })
+
+        print('df = ', df.shape)
 
         # calcul statsics
         try:
