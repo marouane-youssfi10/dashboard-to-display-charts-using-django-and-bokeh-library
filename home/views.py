@@ -37,21 +37,21 @@ def chart(request):
         max_p = request.POST.get('max_price') # dacia logan
 
 
-        test_show = Fact_car.objects.raw("select * from get_data_1"
-        "('" + name + "', '"+ model_display +"', '" + get_city + "', '" + boite + "', " + min_p + "," + max_p + ");")
+        # test_show = Fact_car.objects.raw("select * from get_data_1"
+        # "('" + name + "', '"+ model_display +"', '" + get_city + "', '" + boite + "', " + min_p + "," + max_p + ");")
         showsearch = VoitureModel.objects.all()
         city_for_pie_chart = VoitureModel.objects.all()
 
-        print('test_show = ', test_show)
-        print('\n')
+        # print('test_show = ', test_show)
+        # print('\n')
 
-        k = 1
-        if not test_show:
-            print('5awya')
-        for i in test_show:
-            print(k, '. name = ', i.name_car)
-            print(k, '. name = ', i.model)
-            k = k + 1
+        # k = 1
+        # if not test_show:
+        #     print('5awya')
+        # for i in test_show:
+        #     print(k, '. name = ', i.name_car)
+        #     print(k, '. name = ', i.model)
+        #     k = k + 1
         # search name
         if 'name_car' in request.POST:
             name_car = request.POST['name_car']
