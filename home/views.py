@@ -31,6 +31,7 @@ def chart(request):
 
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
+
         # get_city = request.POST.get('city') # dacia logan
         # boite = request.POST.get('boite_a_vitesse') # dacia logan
         # min_p = request.POST.get('min_price') # dacia logan
@@ -51,6 +52,7 @@ def chart(request):
         #     print(k, '. name = ', i.name_car)
         #     print(k, '. name = ', i.model)
         #     k = k + 1
+
         # search name
         if 'name_car' in request.POST:
             name_car = request.POST['name_car']
@@ -96,7 +98,7 @@ def chart(request):
                 print('-------------------boite_a_vitesse_1---------------')
                 print('boite_a_vitesse = ', boite_a_vitesse_1, '\n')
                 city_for_pie_chart = city_for_pie_chart.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
-                showsearch = showsearch.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)#
+                showsearch = showsearch.filter(boite_a_vitesse__iexact=boite_a_vitesse_1)
         # if boite_a_vitesse not exist in database
         n = 'boite a vitesse'
         if not showsearch:
