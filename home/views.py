@@ -15,6 +15,7 @@ def home(request):
 
 def chart(request):
     if request.method == "POST":
+        # create des list
         name_car1 = []
         price = []
         annee = []
