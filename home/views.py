@@ -29,7 +29,9 @@ def chart(request):
         kilometrage = []
         descriptions = []
         ville_pie = []
-
+        # test
+        # test
+        # test
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
 
