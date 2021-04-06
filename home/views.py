@@ -30,8 +30,6 @@ def chart(request):
         descriptions = []
         ville_pie = []
         # test
-        # test
-        # test
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
 
@@ -47,7 +45,7 @@ def chart(request):
 
         # print('test_show = ', test_show)
         # print('\n')
-
+        # had lblan ma5damtch
         # k = 1
         # if not test_show:
         #     print('5awya')
