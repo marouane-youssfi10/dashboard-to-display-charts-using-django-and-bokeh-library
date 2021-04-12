@@ -280,7 +280,6 @@ def create_order(request):
     }
     return render(request, 'editing/create_order.html', context)
 
-
 def update_order(request, pk):
     # print('id = ', pk)
     order = VoitureModel.objects.get(id=pk)
@@ -296,7 +295,6 @@ def update_order(request, pk):
     context = {'form': form}
     return render(request, 'editing/update_order.html', context)
 
-
 def delete_order(request, pk):
     order = VoitureModel.objects.get(id=pk)
     if request.method == "POST":
@@ -307,4 +305,31 @@ def delete_order(request, pk):
 
     return render(request, 'editing/delete_order.html', context)
 
+# API
 
+from rest_framework import viewsets
+from .serializers import VoitureModelSerializer
+from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
+
+class VoitureModelViewSet(viewsets.ModelViewSet):
+    print('\n', '----- class CLientVIewSet ------', '\n')
+    filter_backends = (SearchFilter, )
+    # queryset = VoitureModel.objects.filter(name_car__icontains='dacia logan')
+    serializer_class = VoitureModelSerializer
+    search_fields = ('name_car', 'price')
+    def get_queryset(self):
+        print('\n', '---------- get_queryset    -----------', '\n')
+        name = self.request.query_params.get('search', None)
+        if name:
+            print('///////////// if ////////////////', name)
+            return VoitureModel.objects.filter(name_car__icontains=str(name))
+        else:
+            print('//////////// else ///////////////', name)
+            return VoitureModel.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        print('\n', '-------------- list ---------------', '\n')
+        cars = self.get_queryset()
+        serializer = VoitureModelSerializer(cars, many=True)
+        return Response(serializer.data)

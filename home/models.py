@@ -18,11 +18,18 @@ class VoitureModel(models.Model):
     model = models.CharField(max_length=50, default=False)
     description = models.TextField()
 
+    class Meta:
+        db_table = "car"
+
     def __str__(self): # dunder function
         return self.name_car
 
-    class Meta:
-        db_table = "car"
+    objects = models.Manager()
+
+    @property
+    def count_rows(self):
+        var = VoitureModel.objects.all().count()
+        return var
 
 
 # conseption
