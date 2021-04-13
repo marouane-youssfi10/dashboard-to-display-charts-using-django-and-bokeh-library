@@ -26,10 +26,10 @@ class VoitureModel(models.Model):
 
     objects = models.Manager()
 
-    @property
+    """@property
     def count_rows(self):
         var = VoitureModel.objects.all().count()
-        return var
+        return var"""
 
 
 # conseption

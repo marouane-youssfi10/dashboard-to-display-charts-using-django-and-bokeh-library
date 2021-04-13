@@ -311,19 +311,27 @@ from rest_framework import viewsets
 from .serializers import VoitureModelSerializer
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
 
 class VoitureModelViewSet(viewsets.ModelViewSet):
     print('\n', '----- class CLientVIewSet ------', '\n')
-    filter_backends = (SearchFilter, )
+    filter_backends = (SearchFilter, DjangoFilterBackend)
     # queryset = VoitureModel.objects.filter(name_car__icontains='dacia logan')
     serializer_class = VoitureModelSerializer
     search_fields = ('name_car', 'price')
+    filter_fields = ('name_car', 'price') # /?name_car=dacia logan&price=20 000
+
     def get_queryset(self):
         print('\n', '---------- get_queryset    -----------', '\n')
         name = self.request.query_params.get('search', None)
+        name_car = self.request.query_params.get('name_car', None)
+        price = self.request.query_params.get('price', None)
         if name:
             print('///////////// if ////////////////', name)
             return VoitureModel.objects.filter(name_car__icontains=str(name))
+        elif name_car:
+            print('//////////// elif ///////////////', name_car, '--', price)
+            return VoitureModel.objects.filter(name_car__icontains=str(name_car), price__iexact=price)
         else:
             print('//////////// else ///////////////', name)
             return VoitureModel.objects.all()
