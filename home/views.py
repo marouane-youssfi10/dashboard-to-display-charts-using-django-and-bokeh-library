@@ -333,6 +333,8 @@ class VoitureModelViewSet(viewsets.ModelViewSet):
             return VoitureModel.objects.filter(name_car__icontains=str(name))
         elif name_car and price:
             print('//////////// elif 1 /////////////', name_car, '--', price)
+            if VoitureModel.objects.filter(name_car__icontains=str(name_car), price__iexact=price) is None:
+                print(" -- None --")
             return VoitureModel.objects.filter(name_car__icontains=str(name_car), price__iexact=price)
         elif id:
             print('//////////// elif 2 /////////////', id)
