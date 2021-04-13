@@ -31,6 +31,12 @@ class VoitureModel(models.Model):
         var = VoitureModel.objects.all().count()
         return var"""
 
+    @property
+    def carburant_test(self):
+        if self.carburant != 'Diesel' and self.carburant != 'Essence' and self.carburant != 'Hybride' and self.carburant != 'LPG':
+            return "carburant null"
+        else:
+            return "carburant exists"
 
 # conseption
 class Car(models.Model):

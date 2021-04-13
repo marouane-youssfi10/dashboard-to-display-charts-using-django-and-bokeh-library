@@ -311,11 +311,11 @@ from rest_framework import viewsets
 from .serializers import VoitureModelSerializer
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
-from django_filters.rest_framework import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 
 class VoitureModelViewSet(viewsets.ModelViewSet):
     print('\n', '----- class CLientVIewSet ------', '\n')
-    filter_backends = (SearchFilter, DjangoFilterBackend)
+    filter_backends = (SearchFilter, )
     # queryset = VoitureModel.objects.filter(name_car__icontains='dacia logan')
     serializer_class = VoitureModelSerializer
     search_fields = ('name_car', 'price')
@@ -331,13 +331,16 @@ class VoitureModelViewSet(viewsets.ModelViewSet):
         if name:
             print('///////////// if ////////////////', name)
             return VoitureModel.objects.filter(name_car__icontains=str(name))
+        elif name_car:
+            print('//////////// elif 1 //////////////', name)
+            return VoitureModel.objects.filter(name_car__icontains=str(name_car))
         elif name_car and price:
-            print('//////////// elif 1 /////////////', name_car, '--', price)
+            print('//////////// elif 2 /////////////', name_car, '--', price)
             if VoitureModel.objects.filter(name_car__icontains=str(name_car), price__iexact=price) is None:
                 print(" -- None --")
             return VoitureModel.objects.filter(name_car__icontains=str(name_car), price__iexact=price)
         elif id:
-            print('//////////// elif 2 /////////////', id)
+            print('//////////// elif 3 /////////////', id)
             return VoitureModel.objects.filter(id=id)
         else:
             print('//////////// else ///////////////', name)
