@@ -319,19 +319,24 @@ class VoitureModelViewSet(viewsets.ModelViewSet):
     # queryset = VoitureModel.objects.filter(name_car__icontains='dacia logan')
     serializer_class = VoitureModelSerializer
     search_fields = ('name_car', 'price')
-    filter_fields = ('name_car', 'price') # /?name_car=dacia logan&price=20 000
+    filter_fields = ('id', 'name_car', 'price') # /?name_car=dacia logan&price=20 000
 
     def get_queryset(self):
         print('\n', '---------- get_queryset    -----------', '\n')
         name = self.request.query_params.get('search', None)
+        id = self.request.query_params.get('id', None)
         name_car = self.request.query_params.get('name_car', None)
         price = self.request.query_params.get('price', None)
+        print('name = ' + str(name) + '...' + 'name_car = ' + str(name_car) + '...' + 'price = ' + str(price), '\n')
         if name:
             print('///////////// if ////////////////', name)
             return VoitureModel.objects.filter(name_car__icontains=str(name))
-        elif name_car:
-            print('//////////// elif ///////////////', name_car, '--', price)
+        elif name_car and price:
+            print('//////////// elif 1 /////////////', name_car, '--', price)
             return VoitureModel.objects.filter(name_car__icontains=str(name_car), price__iexact=price)
+        elif id:
+            print('//////////// elif 2 /////////////', id)
+            return VoitureModel.objects.filter(id=id)
         else:
             print('//////////// else ///////////////', name)
             return VoitureModel.objects.all()
@@ -341,3 +346,6 @@ class VoitureModelViewSet(viewsets.ModelViewSet):
         cars = self.get_queryset()
         serializer = VoitureModelSerializer(cars, many=True)
         return Response(serializer.data)
+
+    def retrieve(self, request, *args, **kwargs):
+        return Response("Not Allowed Baby")
