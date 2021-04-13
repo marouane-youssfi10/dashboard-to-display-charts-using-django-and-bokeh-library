@@ -143,3 +143,10 @@ from django.conf import global_settings
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}

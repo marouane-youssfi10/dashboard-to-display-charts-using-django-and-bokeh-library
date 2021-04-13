@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 import statistics
 import pandas as pd
+
+
 from .form import TestingForm
 from .models import VoitureModel, Fact_car
 from django.http import HttpResponseRedirect
@@ -312,6 +314,7 @@ from .serializers import VoitureModelSerializer
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 # from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.authentication import TokenAuthentication
 
 class VoitureModelViewSet(viewsets.ModelViewSet):
     print('\n', '----- class CLientVIewSet ------', '\n')
@@ -320,6 +323,7 @@ class VoitureModelViewSet(viewsets.ModelViewSet):
     serializer_class = VoitureModelSerializer
     search_fields = ('name_car', 'price')
     filter_fields = ('id', 'name_car', 'price') # /?name_car=dacia logan&price=20 000
+    authentication_classes = [TokenAuthentication] # katsift request f headers postman like Authorization : Token code 3Ad atjik response
 
     def get_queryset(self):
         print('\n', '---------- get_queryset    -----------', '\n')
@@ -344,7 +348,7 @@ class VoitureModelViewSet(viewsets.ModelViewSet):
             return VoitureModel.objects.filter(id=id)
         else:
             print('//////////// else ///////////////', name)
-            return VoitureModel.objects.all()
+            return VoitureModel.objects.filter(id=5)
 
     def list(self, request, *args, **kwargs):
         print('\n', '-------------- list ---------------', '\n')
