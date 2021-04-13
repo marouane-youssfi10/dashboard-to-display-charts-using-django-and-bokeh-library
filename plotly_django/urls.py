@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from home.views import VoitureModelViewSet
+from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
 router.register(r'car', VoitureModelViewSet, basename="car")
@@ -24,5 +25,6 @@ router.register(r'car', VoitureModelViewSet, basename="car")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('api-token-auth/', obtain_auth_token)
 ]

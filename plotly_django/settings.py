@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'home.apps.HomeConfig',
     'rest_framework',
-    'django_filters'
+    'django_filters',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
