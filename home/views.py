@@ -316,7 +316,7 @@ from rest_framework.response import Response
 
 # libary for Authentication
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly, DjangoModelPermissions
 
 class VoitureModelViewSet(viewsets.ModelViewSet):
     print('\n', '----- class CLientVIewSet ------', '\n')
@@ -326,11 +326,20 @@ class VoitureModelViewSet(viewsets.ModelViewSet):
     search_fields = ('name_car', 'price')
     filter_fields = ('id', 'name_car', 'price') # /?name_car=dacia logan&price=20 000
 
-    # katsift request f headers postman like Authorization : Token code 3Ad atjik response
+    # katsift request f headers postman like Authorization : Token code 3ad atjik response
     authentication_classes = [TokenAuthentication]
 
-    # hadi kanst3mloha ila brit tjik response bla matsift Authorization fl header d postman oula chi haja f body
-    permission_classes = [AllowAny]
+    # hadi kanst3mloha ila brit tjik response bla matsift Authorization fl header d postman oula chi haja f body.
+    # permission_classes = [AllowAny]
+
+    # had kanst3mloha bach t3i l7a9 hi l user li 3ndhoum Staff status active.
+    # permission_classes = [IsAdminUser]
+
+    # hadi kat3tik l7a9 ta5d data bla matsift l Authorization. wila briti dir update darouri 5ask tsift Authorization
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+
+    # hadi kat3tik l7a9 l nass wach imklhoum idiro l update ldata dyalk ou la izido chi item...
+    # permission_classes = [DjangoModelPermissions]
 
     def get_queryset(self):
         print('\n', '---------- get_queryset    -----------', '\n')
