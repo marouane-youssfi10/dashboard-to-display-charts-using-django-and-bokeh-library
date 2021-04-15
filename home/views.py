@@ -35,26 +35,8 @@ def chart(request):
         name = request.POST.get('name_car') # dacia logan
         model_display = request.POST.get('model') # dacia logan
 
-        # get_city = request.POST.get('city') # dacia logan
-        # boite = request.POST.get('boite_a_vitesse') # dacia logan
-        # min_p = request.POST.get('min_price') # dacia logan
-        # max_p = request.POST.get('max_price') # dacia logan
-
-        # test_show = Fact_car.objects.raw("select * from get_data_1"
-        # "('" + name + "', '"+ model_display +"', '" + get_city + "', '" + boite + "', " + min_p + "," + max_p + ");")
         showsearch = VoitureModel.objects.all()
         city_for_pie_chart = VoitureModel.objects.all()
-
-        # print('test_show = ', test_show)
-        # print('\n')
-        # had lblan ma5damtch
-        # k = 1
-        # if not test_show:
-        #     print('5awya')
-        # for i in test_show:
-        #     print(k, '. name = ', i.name_car)
-        #     print(k, '. name = ', i.model)
-        #     k = k + 1
 
         # search name
         if 'name_car' in request.POST:
@@ -258,6 +240,7 @@ def chart(request):
 def about(request):
     return render(request, 'pages/about.html')
 
+# create function 'create, update, delete'
 def create_order(request):
     form = TestingForm()
     last_id = VoitureModel.objects.order_by('id').last()
@@ -306,6 +289,7 @@ def delete_order(request, pk):
     context = {'item': order}
 
     return render(request, 'editing/delete_order.html', context)
+# end create update delete
 
 # API
 
